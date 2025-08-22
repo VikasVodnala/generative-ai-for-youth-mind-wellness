@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBridge AI - Youth Mental Wellness Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <h2>🌉 MindBridge AI</h2>
+                <span class="nav__tagline">Empowering Youth Mental Wellness</span>
+            </div>
+            <ul class="nav__menu">
+                <li><button class="nav__link" data-section="home">Home</button></li>
+                <li><button class="nav__link" data-section="chat">AI Chat</button></li>
+                <li><button class="nav__link" data-section="mood">Mood Tracker</button></li>
+                <li><button class="nav__link" data-section="resources">Resources</button></li>
+                <li><button class="nav__link" data-section="community">Community</button></li>
+                <li><button class="nav__link crisis-btn" data-section="crisis">🆘 Crisis Support</button></li>
+            </ul>
+            <button class="nav__toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Home Section -->
+        <section id="home" class="section section--active">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">Welcome to Your Mental Wellness Journey</h1>
+                        <p class="hero__description">AI-powered support designed specifically for youth aged 13-24. Get personalized help, track your mood, and connect with a supportive community.</p>
+                        <div class="hero__cta">
+                            <button class="btn btn--primary" data-section="chat">Start AI Chat</button>
+                            <button class="btn btn--outline" data-section="mood">Quick Mood Check</button>
+                        </div>
+                    </div>
+                    <div class="hero__mood-widget">
+                        <div class="mood-check">
+                            <h3>How are you feeling today?</h3>
+                            <div class="mood-selector">
+                                <button class="mood-btn" data-mood="very-sad" title="Very Sad">😢</button>
+                                <button class="mood-btn" data-mood="sad" title="Sad">😔</button>
+                                <button class="mood-btn" data-mood="neutral" title="Neutral">😐</button>
+                                <button class="mood-btn" data-mood="happy" title="Happy">😊</button>
+                                <button class="mood-btn" data-mood="very-happy" title="Very Happy">😄</button>
+                            </div>
+                            <p class="mood-text">Click an emoji to log your mood</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="container">
+                    <h2 class="features__title">Your Mental Wellness Toolkit</h2>
+                    <div class="features__grid">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🤖</div>
+                            <h3>AI Mental Health Companion</h3>
+                            <p>24/7 conversational AI trained in cognitive behavioral therapy techniques</p>
+                            <button class="btn btn--secondary" data-section="chat">Try AI Chat</button>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">📊</div>
+                            <h3>Smart Mood Analytics</h3>
+                            <p>Track patterns, identify triggers, and visualize your emotional journey</p>
+                            <button class="btn btn--secondary" data-section="mood">View Dashboard</button>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">📚</div>
+                            <h3>Personalized Resources</h3>
+                            <p>Curated exercises, meditations, and educational content just for you</p>
+                            <button class="btn btn--secondary" data-section="resources">Explore Resources</button>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">👥</div>
+                            <h3>Safe Peer Community</h3>
+                            <p>Connect with others your age in moderated, supportive discussion groups</p>
+                            <button class="btn btn--secondary" data-section="community">Join Community</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chat Section -->
+        <section id="chat" class="section">
+            <div class="container">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-status">
+                            <div class="status-indicator online"></div>
+                            <div class="chat-info">
+                                <h3>MindBridge AI Assistant</h3>
+                                <span>Always here to listen and support you</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <p>Hi there! I'm your AI mental health companion. I'm here to listen, support you, and help you develop healthy coping strategies. How are you feeling today?</p>
+                            </div>
+                            <span class="message-time">Just now</span>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <div class="crisis-warning hidden" id="crisisWarning">
+                            <div class="crisis-content">
+                                <span class="crisis-icon">⚠️</span>
+                                <p>I'm concerned about what you've shared. Please consider reaching out for immediate support.</p>
+                                <button class="btn btn--primary btn--sm" data-section="crisis">Get Crisis Support</button>
+                            </div>
+                        </div>
+                        <form class="chat-form" id="chatForm">
+                            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here..." required>
+                            <button type="submit" class="chat-send">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood Tracker Section -->
+        <section id="mood" class="section">
+            <div class="container">
+                <div class="mood-header">
+                    <h2>Your Mood Journey</h2>
+                    <p>Track your emotional patterns and gain insights into your mental wellness</p>
+                </div>
+                
+                <div class="mood-dashboard">
+                    <div class="mood-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <h3 id="streakCount">7</h3>
+                                <p>Day Streak</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">😊</div>
+                            <div class="stat-content">
+                                <h3 id="avgMood">Good</h3>
+                                <p>Average Mood</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-content">
+                                <h3 id="totalEntries">28</h3>
+                                <p>Total Entries</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container" style="position: relative; height: 400px;">
+                        <canvas id="moodChart"></canvas>
+                    </div>
+
+                    <div class="mood-insights">
+                        <h3>Personalized Insights</h3>
+                        <div class="insight-cards">
+                            <div class="insight-card">
+                                <h4>📅 Weekly Pattern</h4>
+                                <p>You tend to feel better on weekends. Consider planning more enjoyable activities during weekdays.</p>
+                            </div>
+                            <div class="insight-card">
+                                <h4>🌟 Mood Boost</h4>
+                                <p>Your mood improved 40% after meditation sessions. Keep up the great work!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <div class="container">
+                <div class="resources-header">
+                    <h2>Wellness Resource Library</h2>
+                    <p>Personalized tools and exercises to support your mental health journey</p>
+                </div>
+                
+                <div class="resource-filters">
+                    <button class="filter-btn filter-btn--active" data-category="all">All Resources</button>
+                    <button class="filter-btn" data-category="meditation">Meditation</button>
+                    <button class="filter-btn" data-category="breathing">Breathing</button>
+                    <button class="filter-btn" data-category="journaling">Journaling</button>
+                    <button class="filter-btn" data-category="education">Education</button>
+                </div>
+
+                <div class="resources-grid" id="resourcesGrid">
+                    <div class="resource-card" data-category="meditation">
+                        <div class="resource-icon">🧘‍♀️</div>
+                        <h3>5-Minute Calm</h3>
+                        <p>Quick guided meditation for instant stress relief</p>
+                        <div class="resource-meta">
+                            <span class="duration">5 min</span>
+                            <span class="difficulty">Beginner</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Start Session</button>
+                    </div>
+                    
+                    <div class="resource-card" data-category="breathing">
+                        <div class="resource-icon">💨</div>
+                        <h3>Box Breathing</h3>
+                        <p>Navy SEAL technique for anxiety and stress management</p>
+                        <div class="resource-meta">
+                            <span class="duration">3 min</span>
+                            <span class="difficulty">Easy</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Try Now</button>
+                    </div>
+
+                    <div class="resource-card" data-category="journaling">
+                        <div class="resource-icon">✍️</div>
+                        <h3>Gratitude Journal</h3>
+                        <p>Daily prompts to cultivate positivity and mindfulness</p>
+                        <div class="resource-meta">
+                            <span class="duration">10 min</span>
+                            <span class="difficulty">Beginner</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Open Journal</button>
+                    </div>
+
+                    <div class="resource-card" data-category="education">
+                        <div class="resource-icon">🧠</div>
+                        <h3>Understanding Anxiety</h3>
+                        <p>Learn about anxiety and effective coping strategies</p>
+                        <div class="resource-meta">
+                            <span class="duration">15 min</span>
+                            <span class="difficulty">All levels</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Learn More</button>
+                    </div>
+
+                    <div class="resource-card" data-category="meditation">
+                        <div class="resource-icon">🌙</div>
+                        <h3>Sleep Stories</h3>
+                        <p>Calming bedtime stories for better sleep quality</p>
+                        <div class="resource-meta">
+                            <span class="duration">20 min</span>
+                            <span class="difficulty">All levels</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Listen</button>
+                    </div>
+
+                    <div class="resource-card" data-category="breathing">
+                        <div class="resource-icon">🌺</div>
+                        <h3>4-7-8 Breathing</h3>
+                        <p>Natural tranquilizer for better sleep and relaxation</p>
+                        <div class="resource-meta">
+                            <span class="duration">5 min</span>
+                            <span class="difficulty">Beginner</span>
+                        </div>
+                        <button class="btn btn--primary btn--sm">Practice</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="section">
+            <div class="container">
+                <div class="community-header">
+                    <h2>Safe Peer Community</h2>
+                    <p>Connect with others who understand your journey in a moderated, supportive environment</p>
+                </div>
+
+                <div class="community-guidelines">
+                    <div class="guidelines-card">
+                        <h3>🛡️ Community Guidelines</h3>
+                        <ul>
+                            <li>Respect everyone's experiences and perspectives</li>
+                            <li>No sharing of personal information</li>
+                            <li>Use supportive, non-judgmental language</li>
+                            <li>Report any concerning content to moderators</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="community-topics">
+                    <h3>Discussion Topics</h3>
+                    <div class="topics-grid">
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <h4>Managing School Stress</h4>
+                                <span class="topic-count">24 members</span>
+                            </div>
+                            <p>Share tips and experiences about handling academic pressure</p>
+                            <div class="topic-activity">
+                                <span class="activity-indicator">🟢</span>
+                                <span>Active now</span>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <h4>Social Anxiety Support</h4>
+                                <span class="topic-count">18 members</span>
+                            </div>
+                            <p>A safe space to discuss social challenges and victories</p>
+                            <div class="topic-activity">
+                                <span class="activity-indicator">🟡</span>
+                                <span>2 hours ago</span>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <h4>Mindfulness & Meditation</h4>
+                                <span class="topic-count">31 members</span>
+                            </div>
+                            <p>Share mindfulness practices and meditation experiences</p>
+                            <div class="topic-activity">
+                                <span class="activity-indicator">🟢</span>
+                                <span>Active now</span>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <h4>Family Relationships</h4>
+                                <span class="topic-count">16 members</span>
+                            </div>
+                            <p>Discuss family dynamics and relationship challenges</p>
+                            <div class="topic-activity">
+                                <span class="activity-indicator">🟡</span>
+                                <span>1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="community-chat-preview">
+                    <h3>Recent Community Messages</h3>
+                    <div class="community-messages">
+                        <div class="community-message">
+                            <div class="message-avatar">🌸</div>
+                            <div class="message-content">
+                                <span class="message-author">Sarah_M</span>
+                                <p>"Just wanted to thank everyone for the support this week. The breathing exercises really helped during my presentation!"</p>
+                                <span class="message-time">2 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="community-message">
+                            <div class="message-avatar">🌟</div>
+                            <div class="message-content">
+                                <span class="message-author">Alex_23</span>
+                                <p>"Does anyone else find journaling helpful? I've been trying it for a week and feeling more centered."</p>
+                                <span class="message-time">15 minutes ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crisis Support Section -->
+        <section id="crisis" class="section crisis-section">
+            <div class="container">
+                <div class="crisis-header">
+                    <div class="crisis-icon">🚨</div>
+                    <h2>Immediate Crisis Support</h2>
+                    <p class="crisis-subtitle">You are not alone. Help is available 24/7.</p>
+                </div>
+
+                <div class="emergency-contacts">
+                    <h3>Emergency Hotlines</h3>
+                    <div class="contacts-grid">
+                        <div class="contact-card urgent">
+                            <h4>🇺🇸 Crisis Text Line</h4>
+                            <p class="contact-number">Text HOME to 741741</p>
+                            <p>24/7 crisis support via text message</p>
+                            <a href="sms:741741&body=HOME" class="btn btn--primary">Text Now</a>
+                        </div>
+                        
+                        <div class="contact-card urgent">
+                            <h4>🇺🇸 National Suicide Prevention Lifeline</h4>
+                            <p class="contact-number">988 or 1-800-273-8255</p>
+                            <p>24/7 free and confidential emotional support</p>
+                            <a href="tel:988" class="btn btn--primary">Call Now</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4>🌐 International Association for Suicide Prevention</h4>
+                            <p>Find crisis centers worldwide</p>
+                            <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" class="btn btn--outline">Find Local Help</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crisis-resources">
+                    <h3>Immediate Coping Strategies</h3>
+                    <div class="coping-strategies">
+                        <div class="strategy-card">
+                            <h4>🫁 Breathe with me</h4>
+                            <p>Try this 4-7-8 breathing technique right now</p>
+                            <button class="btn btn--secondary breathing-exercise-btn">Start Breathing Exercise</button>
+                        </div>
+                        <div class="strategy-card">
+                            <h4>🎵 Calming Sounds</h4>
+                            <p>Listen to soothing nature sounds or music</p>
+                            <button class="btn btn--secondary">Play Calming Audio</button>
+                        </div>
+                        <div class="strategy-card">
+                            <h4>✋ 5-4-3-2-1 Grounding</h4>
+                            <p>Ground yourself using your five senses</p>
+                            <button class="btn btn--secondary grounding-btn">Start Grounding</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="professional-help">
+                    <h3>Professional Support</h3>
+                    <div class="support-options">
+                        <div class="support-card">
+                            <h4>Find a Therapist</h4>
+                            <p>Psychology Today therapist directory</p>
+                            <a href="https://www.psychologytoday.com/us/therapists" target="_blank" class="btn btn--outline">Search Therapists</a>
+                        </div>
+                        <div class="support-card">
+                            <h4>Teen Online Therapy</h4>
+                            <p>BetterHelp specialized teen counseling</p>
+                            <a href="https://www.betterhelp.com/teen-counseling/" target="_blank" class="btn btn--outline">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Breathing Exercise Modal -->
+    <div class="modal hidden" id="breathingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Breathing Exercise</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="breathing-exercise">
+                <div class="breathing-circle" id="breathingCircle"></div>
+                <div class="breathing-instructions" id="breathingInstructions">Prepare to breathe...</div>
+                <div class="breathing-controls">
+                    <button class="btn btn--primary" id="startBreathing">Start</button>
+                    <button class="btn btn--secondary" id="stopBreathing">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grounding Exercise Modal -->
+    <div class="modal hidden" id="groundingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>5-4-3-2-1 Grounding Exercise</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="grounding-exercise">
+                <div class="grounding-step active" data-step="1">
+                    <h4>5 things you can SEE</h4>
+                    <p>Look around you and name 5 things you can see</p>
+                    <div class="grounding-input">
+                        <input type="text" placeholder="Thing 1">
+                        <input type="text" placeholder="Thing 2">
+                        <input type="text" placeholder="Thing 3">
+                        <input type="text" placeholder="Thing 4">
+                        <input type="text" placeholder="Thing 5">
+                    </div>
+                </div>
+                <div class="grounding-step" data-step="2">
+                    <h4>4 things you can TOUCH</h4>
+                    <p>Notice 4 things you can physically feel</p>
+                    <div class="grounding-input">
+                        <input type="text" placeholder="Thing 1">
+                        <input type="text" placeholder="Thing 2">
+                        <input type="text" placeholder="Thing 3">
+                        <input type="text" placeholder="Thing 4">
+                    </div>
+                </div>
+                <div class="grounding-controls">
+                    <button class="btn btn--secondary" id="groundingPrev">Previous</button>
+                    <button class="btn btn--primary" id="groundingNext">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
